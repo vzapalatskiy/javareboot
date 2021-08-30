@@ -1,0 +1,96 @@
+public class MyClass {
+  /*  Для каждого типа транспортного средства, своя стоимость литра топлива:
+100 - 46.10
+300 - 47.50
+200, 400 - 48.90
+*/
+
+/*Для каждого типа транспортного средства свой расход топлива на 100 км:
+100 - 12.5
+200 - 12
+300 - 11.5
+400 - 20
+*/
+    public static void main(String args[]) {
+      //входные данные
+      String [] inputData = new String [] {"C100_1-100", "C200_1-120-1200", "C300_1-120-30", 
+      "C400_1-80-20", "C100_2-50", "C200_2-40-1000", "C300_2-200-45", "C400_2-10-20", 
+      "C100_3-10", "C200_3-170-1100", "C300_3-150-29", "C400_3-100-28", "C100_1-300", "C200_1-100-750", "C300_1-32-15"};
+      // цена за каждый литр топлива
+      double costLiterFuel100 = 46.1;
+      double costLiterFuel300 = 47.5;
+      double costLiterFuel200400 = 48.9;
+      
+      //расход на 100 км
+      double fuelConsumption100 = 12.5;
+      double fuelConsumption200 = 12;
+      double fuelConsumption300 = 11.5;
+      double fuelConsumption400 = 20;
+      
+      double mileage100 = 0;
+      double mileage200 = 0;
+      double mileage300 = 0;
+      double mileage400 = 0;
+      
+     for (int i = 0; i < inputData.length; i++) {
+            //берем тип транспортного средсва
+            if (inputData[i].contains("C100"))
+            {
+                 mileage100 += Integer.parseInt(inputData[i].split("-")[1].trim());
+                //System.out.println("Тип транспорта100 = " + Integer.parseInt(inputData[i].split("-")[1].trim()));
+            }
+            if (inputData[i].contains("C200"))
+            {
+                 mileage200 += Integer.parseInt(inputData[i].split("-")[1].trim());
+                //System.out.println("Тип транспорта200 = " + Integer.parseInt(inputData[i].split("-")[1].trim()));
+            }
+            
+            if (inputData[i].contains("C300"))
+            {
+                 mileage300 += Integer.parseInt(inputData[i].split("-")[1].trim());
+                 //System.out.println("Тип транспорта300 = " + Integer.parseInt(inputData[i].split("-")[1].trim()));
+            }
+            if (inputData[i].contains("C400"))
+            {
+                 mileage400 += Integer.parseInt(inputData[i].split("-")[1].trim());
+                //System.out.println("Тип транспорта400 = " + Integer.parseInt(inputData[i].split("-")[1].trim()));
+            }
+        }
+        double  allCoast100 =  (mileage100 / fuelConsumption100) * costLiterFuel100;
+        double  allCoast200 =  (mileage200 / fuelConsumption200) * costLiterFuel200400;
+        double  allCoast300 =  (mileage300 / fuelConsumption300) * costLiterFuel300;
+        double  allCoast400 =  (mileage400 / fuelConsumption400) * costLiterFuel200400;
+        //System.out.println("литры  = " + litres);
+        //System.out.println(Math.min(1.123, 1.456)); 
+      System.out.println("Общий расход = " + (allCoast100 + allCoast200 + allCoast300 + allCoast400));    
+      System.out.println("Легковой транспорт= " + allCoast100);
+      System.out.println("Грузовой транспорт= " + allCoast200);
+      System.out.println("Пассажирский транспорт= " + allCoast300);
+      System.out.println("Тяжелый транспорт = " + allCoast400);
+        //создадим массив с расходом транспорта каждого типа
+        double [] array = {allCoast100, allCoast200, allCoast300, allCoast400};
+        //sortArray(array);
+        System.out.println("Тип авто с наименьшим расходом = " + sortArray(array)[0]);
+        System.out.println("Тип авто с наибольшим расходом = " + sortArray(array)[3]);
+    }
+    //отсортируем наши полученные значения
+    public static double [] sortArray (double [] arr)
+    {
+        boolean isSorted = false;
+        double buf;
+        while(!isSorted) {
+            isSorted = true;
+            for (int i = 0; i < arr.length-1; i++) {
+                if(arr[i] > arr[i+1]){
+                    isSorted = false;
+ 
+                    buf = arr[i];
+                    arr[i] = arr[i+1];
+                    arr[i+1] = buf;
+                }
+            }
+        }
+        return arr;
+    }
+    
+}
